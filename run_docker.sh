@@ -35,30 +35,30 @@ CONTAINER_NAME="volara_miner"
 
 # Function to check if the container exists
 container_exists() {
-    sudo docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"
+    docker ps -a --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"
 }
 
 # Function to check if the container is running
 is_container_running() {
-    sudo docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"
+    docker ps --format '{{.Names}}' | grep -q "^${CONTAINER_NAME}$"
 }
 
 # Function to run the container if it doesn't exist
 run_container() {
     echo "Running ${CONTAINER_NAME} container interactively..."
-    sudo docker run -it -e VANA_PRIVATE_KEY=${VANA_PRIVATE_KEY} --name ${CONTAINER_NAME} volara/miner
+    docker run -it -e VANA_PRIVATE_KEY=${VANA_PRIVATE_KEY} --name ${CONTAINER_NAME} volara/miner
 }
 
 # Function to start the container if it exists but is not running
 start_container() {
     echo "Starting ${CONTAINER_NAME} container interactively..."
-    sudo docker start -i ${CONTAINER_NAME}
+     docker start -i ${CONTAINER_NAME}
 }
 
 # Function to attach to a running container
 attach_container() {
     echo "Attaching to ${CONTAINER_NAME} container..."
-    sudo docker attach --sig-proxy=false ${CONTAINER_NAME}
+    docker attach --sig-proxy=false ${CONTAINER_NAME}
 }
 
 BOLD=$(tput bold)
@@ -90,7 +90,7 @@ check_docker_installed() {
 
 pull_volara_image() {
     show "Pulling Volara image..." "progress"
-    sudo docker pull volara/miner > /dev/null 2>&1
+    docker pull volara/miner > /dev/null 2>&1
     show "Volara image pulled successfully."
 }
 
